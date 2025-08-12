@@ -1,4 +1,4 @@
-class PlayerList():
+class PlayerList:
     def __init__(self):
         """Initialize player list."""
         #Private variable
