@@ -121,26 +121,33 @@ class PlayerList:
             print("List is empty")
             return
 
+        player_lst = []
         if forward:
+            # walk from head toward tail using .next
             current = self._head
             while current:
-                print(current)
+                label = f"{current.player.name} ({current.key})"
+                player_lst.append(label)
                 current = current.next
 
         else:
+            # walk from tail toward head using .prev
             current = self._tail
             while current:
-                print(current)
+                label = f"{current.player.name} ({current.key})"
+                player_lst.append(label)
                 current = current.prev
 
-p1 = Player("Alice", "001")
-p2 = Player("Bonny", "002")
-p3 = Player("Cat", "003")
+        output = "<->".join(player_lst)
+        print(output)
+
+player_1 = Player("Alice", "001")
+player_2 = Player("Bonny", "002")
+player_3 = Player("Cat", "003")
 
 lst = PlayerList()
-lst.insert_at_head(p1)  # head → Alice
-lst.insert_at_head(p2)  # head → Bonny → Alice
-lst.insert_at_head(p3)  # head → Bonny → Alice -> Cat -> tail
+lst.insert_at_head(player_1)  # head → Alice
+lst.insert_at_head(player_2)  # head → Bonny → Alice
+lst.insert_at_head(player_3)  # head → Bonny → Alice -> Cat -> tail
 
-# lst.display()
-lst.display(forward=False)
+lst.display(forward=True)
