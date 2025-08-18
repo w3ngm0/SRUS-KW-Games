@@ -23,7 +23,7 @@ class TestPlayerList(unittest.TestCase):
         self.assertEqual(player_list.head.player.uid, "001")
 
 
-    def test_insert_at_head_adds_new_node_as_head_when_empty(self):
+    def test_insert_at_head_when_not_empty(self):
         """
         Verify that inserting into a non-empty PlayerList adds a new head node containing new Player.
         The previous head is no longer the head.
@@ -43,7 +43,7 @@ class TestPlayerList(unittest.TestCase):
         self.assertEqual(new_head.player.name, "Bonny")
         self.assertEqual(new_head.player.uid, "002")
         self.assertIsNot(first_head, new_head)
-    def test_insert_at_head_when_empty_sets_head_to_new_node_and_links_to_none(self):
+    def test_insert_at_head_when_empty(self):
         """
         Inserting into an empty list sets head to the new node,
         with head.prev and head.next both to None.
@@ -61,7 +61,7 @@ class TestPlayerList(unittest.TestCase):
         self.assertIsNone(head.prev)
         self.assertIsNone(head.next)
 
-    def test_insert_at_tail_when_empty_sets_head_and_tail_and_null_links(self):
+    def test_insert_at_tail_when_empty(self):
         """
         Inserting into an empty list sets both head and tail to the new node.
         The single node has prev=None and next=None.
@@ -120,8 +120,8 @@ class TestPlayerList(unittest.TestCase):
     def test_delete_by_key(self):
         """Test to remove player by key(uid)."""
         player_list = PlayerList()
-        p1 = Player("Alice", "001")
-        player_list.insert_at_head(p1)
+        player_1 = Player("Alice", "001")
+        player_list.insert_at_head(player_1)
 
         self.assertTrue(player_list.delete_by_key("001"))
         self.assertTrue(player_list.is_empty)
