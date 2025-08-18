@@ -61,6 +61,72 @@ class TestPlayerList(unittest.TestCase):
         self.assertIsNone(head.prev)
         self.assertIsNone(head.next)
 
+    def test_insert_at_tail_when_empty_sets_head_and_tail_and_null_links(self):
+        """
+        Inserting into an empty list sets both head and tail to the new node.
+        The single node has prev=None and next=None.
+        """
+        player_list = PlayerList()
+        player_1 = Player("Alice", "001")
+
+        player_list.insert_at_tail(player_1)
+
+        self.assertFalse(player_list.is_empty)
+        head = player_list.head
+        tail = player_list.tail
+
+        self.assertIsNotNone(head)
+        self.assertIs(head, tail) # only one node
+        self.assertEqual(head.player.name, "Alice")
+        self.assertEqual(head.player.uid, "001")
+        self.assertIsNone(head.prev)
+        self.assertIsNone(head.next)
+
+    def test_delete_head_and_tail_empty(self):
+        """test to check if list is empty when deleting node."""
+        player_list = PlayerList()
+        self.assertTrue(player_list.is_empty)
+        self.assertIsNone(player_list.delete_at_head())
+        self.assertIsNone(player_list.delete_at_tail())
+        self.assertIsNone(player_list.head)
+        self.assertIsNone(player_list.tail)
+
+    def test_delete_head_single_node_isinstance(self):
+        """
+        Test to check if node at head is removed/deleted.
+        :return:
+        """
+        player_list = PlayerList()
+        player_list.insert_at_head(Player("Alice", "001"))
+
+        removed = player_list.delete_at_head()
+        self.assertIsInstance(removed, Player)
+        self.assertEqual(removed.uid, "001")
+        self.assertTrue(player_list.is_empty)
+
+    def test_delete_tail_single_node_isinstance(self):
+        """
+        Test to check if node at tail is removed/deleted.
+        :return:
+        """
+        player_list = PlayerList()
+        player_list.insert_at_tail(Player("Bonny", "001"))
+
+        removed = player_list.delete_at_tail()
+        self.assertIsInstance(removed, Player)
+        self.assertEqual(removed.uid, "001")
+        self.assertTrue(player_list.is_empty)
+
+    def test_delete_by_key(self):
+        """Test to remove player by key(uid)."""
+        player_list = PlayerList()
+        p1 = Player("Alice", "001")
+        player_list.insert_at_head(p1)
+
+        self.assertTrue(player_list.delete_by_key("001"))
+        self.assertTrue(player_list.is_empty)
+        self.assertIsNone(player_list.head)
+        self.assertIsNone(player_list.tail)
 
 if __name__ == '__main__':
     unittest.main()
