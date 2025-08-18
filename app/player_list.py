@@ -114,3 +114,33 @@ class PlayerList:
             node = node.next
 
         return False
+
+    def display(self, forward : bool = True) -> None:
+        """Print the list from head to tail (forward) or tail to head (reverse) """
+        if self.is_empty:
+            print("List is empty")
+            return
+
+        if forward:
+            current = self._head
+            while current:
+                print(current)
+                current = current.next
+
+        else:
+            current = self._tail
+            while current:
+                print(current)
+                current = current.prev
+
+p1 = Player("Alice", "001")
+p2 = Player("Bonny", "002")
+p3 = Player("Cat", "003")
+
+lst = PlayerList()
+lst.insert_at_head(p1)  # head → Alice
+lst.insert_at_head(p2)  # head → Bonny → Alice
+lst.insert_at_head(p3)  # head → Bonny → Alice -> Cat -> tail
+
+# lst.display()
+lst.display(forward=False)
