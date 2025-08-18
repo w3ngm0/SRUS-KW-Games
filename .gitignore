@@ -1,0 +1,14 @@
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+
+# PyCharm project files
+.idea/
+
+# Unit test / coverage reports
+*.py,cover
+.cache
+pytest_cache/
