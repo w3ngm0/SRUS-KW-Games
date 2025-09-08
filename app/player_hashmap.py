@@ -25,7 +25,8 @@ class PlayerHashMap:
         """
         Hash index for a given key
         """
-        return hash(key) % self.size
+        uid = key.uid if isinstance(key, Player) else key
+        return Player.my_chosen_hash_function(uid) % self.size
 
     def get_index(self, key: str | Player) -> int:
         if isinstance(key, Player):
@@ -102,6 +103,9 @@ class PlayerHashMap:
     def __len__(self) -> int:
         """Returns the number of players in the hash map."""
         return self.count
+
+
+
 
 
 
