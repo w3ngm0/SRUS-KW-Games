@@ -19,3 +19,11 @@ class Player:
 
     def __repr__(self) -> str:
         return f"Player(uid={self._uid!r}, name={self._name!r})"
+
+    def __hash__(self):
+        return hash(self.uid)
+
+    @classmethod
+    def hash(cls, key: str):
+        return hash(key)
+
