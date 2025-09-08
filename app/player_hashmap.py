@@ -64,6 +64,44 @@ class PlayerHashMap:
         player_list.insert_at_head(Player(uid=key, name=name))
         self.count += 1  # If it isn't, create a player and add the player to the player list
 
+    def __getitem__(self, key: str) -> Player:
+        """
+        Retrieve a player by key
+        :param key : str
+            The unique identifier for the player
+        :returns Player
+            The player object associated with key
+        :raises KeyError
+            If the key does not exist in the hash map
+        """
+        index_value = self.get_index(key)
+        print(f"This is your {key}, key={key!r}, index={index_value}")
+        node = self.hashmap[index_value].find(key)
+        if node is None:
+            raise KeyError(key)
+        print(f" --> found name={node.player.name!r}")
+        return node.player
+
+    def __delitem__(self, key: str) -> None:
+        """
+        Delete a player by key.
+        :param key: str
+            The unique identifier for the player
+        :raises KeyError
+            If the key does not exist in the hash map
+
+        """
+        index_value = self.get_index(key)
+        print(f"Deleting key={key!r}, index={index_value}")
+        removed_item = self.hashmap[index_value].delete_by_key(key)
+        print(" --> removed" if removed_item else "  -> not found")
+        if not removed_item:
+            raise KeyError(key)
+        self.count -= 1
+
+    def __len__(self) -> int:
+        """Returns the number of players in the hash map."""
+        return self.count
 
 
 
