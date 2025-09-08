@@ -104,6 +104,42 @@ class PlayerHashMap:
         """Returns the number of players in the hash map."""
         return self.count
 
+    def display_hash_table(self):
+        """Visual representation of the hash map. """
+        printed_any = False
+        for i in range(self.size):
+            p_list = self.hashmap[i]
+            if p_list.is_empty:
+                continue
+
+            parts = []
+
+            node = p_list.head
+            while node is not None:
+                #
+                parts.append(f"{node.player.name} ({node.key})")
+                node = node.next
+
+            print(f"[{i}] -->" + "<->".join(parts))
+            printed_any = True
+
+        if not printed_any:
+            print("HashMap is empty")
+
+
+if __name__ == "__main__":
+    hash_m = PlayerHashMap(size=10)
+
+    hash_m["001"] = "Alice"
+    hash_m["002"] = "Bonny"
+    hash_m["003"] = "Cat"
+
+    hash_m.display_hash_table()
+
+    hash_m["002"] = "Bonnie"
+    hash_m.display_hash_table()
+
+
 
 
 
