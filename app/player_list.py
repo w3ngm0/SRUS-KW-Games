@@ -115,6 +115,14 @@ class PlayerList:
 
         return False
 
+    def find(self, key: str):
+        """Return the PlayerNode whose uid == key."""
+        current = self._head
+        while current is not None:
+            if current.key == key:
+                return current
+            current = current.next
+        return None
 
     def display(self, forward : bool = True) -> None:
         """Print the list from head to tail (forward) or tail to head (reverse) """
