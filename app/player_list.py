@@ -115,6 +115,7 @@ class PlayerList:
 
         return False
 
+
     def display(self, forward : bool = True) -> None:
         """Print the list from head to tail (forward) or tail to head (reverse) """
         if self.is_empty:
@@ -140,6 +141,7 @@ class PlayerList:
 
         output = "<->".join(player_lst)
         print(output)
+
 
 player_1 = Player("Alice", "001")
 player_2 = Player("Bonny", "002")
