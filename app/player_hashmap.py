@@ -23,7 +23,10 @@ class PlayerHashMap:
 
     def hash_function(self, key):
         """
-        Hash index for a given key
+        Hash index for a given key using my_chosen_hash_function
+        Key 001 lands in index/bucket 1 by default using the math from:
+        (sum of character codes % 101 - 3) % table size
+
         """
         uid = key.uid if isinstance(key, Player) else key
         return Player.my_chosen_hash_function(uid) % self.size
@@ -138,11 +141,3 @@ if __name__ == "__main__":
 
     hash_m["002"] = "Bonnie"
     hash_m.display_hash_table()
-
-
-
-
-
-
-
-

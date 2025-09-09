@@ -23,17 +23,18 @@ class Player:
     @classmethod
     def my_chosen_hash_function(cls, key: str) -> int:
         """A simple custom hash: sum of char codes mod a large prime."""
-        return sum(ord(ch) for ch in key) % 101
+        return sum(ord(ch) for ch in key) % 101 - 3
 
     def __hash__(self):
         return Player.my_chosen_hash_function(self._uid)
 
-    @classmethod
-    def hash(cls, key: str):
-        return hash(key)
+    # @classmethod
+    # def hash(cls, key: str):
+    #     return hash(key)
 
     def __eq__(self, other: object) -> bool:
         """check equality with another player based on uid"""
         if not isinstance(other, Player):
             return NotImplemented
         return self.uid == other.uid
+
