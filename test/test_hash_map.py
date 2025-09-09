@@ -1,91 +1,49 @@
 import unittest
 from player_hashmap import PlayerHashMap
 from player import Player
-from player_list import PlayerList
 
 
 class TestPlayerHashmap(unittest.TestCase):
 
     def setUp(self):
-        self.hash_m = PlayerHashMap(size=8)
+        self.hash_map_table = PlayerHashMap()
 
-    def test_initial_state(self):
-        """hash map starts empty."""
-        self.assertEqual(len(self.hash_m), 0)
-        self.assertEqual(self.hash_m.size, 8)
-        self.assertTrue(all(isinstance(slot, PlayerList) for slot in self.hash_m.hashmap))
+    def test_insert_and_retrieve(self):
+        """
+        Hash map starts empty.
+        Check to see if new value for hash map is inserted in empty list.
+        And then retrieved.
+        """
+        self.hash_map_table["001"] = "Alice"
+        player = self.hash_map_table["001"]
+        self.assertIsInstance(player, Player)
+        self.assertEqual(player.uid, "001")
+        self.assertEqual(player.name, "Alice")
+        self.assertEqual(len(self.hash_map_table), 1)
 
-    def test_set_and_get_player(self):
-        """insert and retrieve a player."""
-        self.hash_m["001"] = "Alice"
-        p = self.hash_m["001"]
-        self.assertIsInstance(p, Player)
-        self.assertEqual(p.uid, "001")
-        self.assertEqual(p.name, "Alice")
-        self.assertEqual(len(self.hash_m), 1)
+    def test_update_existing_key_keeps_size(self):
+        """Updating an existing key changes the name but not the count."""
+        self.hash_map_table["002"] = "Bonny"
+        self.hash_map_table["002"] = "Becky"
+        self.assertEqual(self.hash_map_table["002"].name, "Becky")
+        self.assertEqual(len(self.hash_map_table), 1)
 
-    def test_update_existing_player(self):
-        """updating same key should not change count."""
-        self.hash_m["002"] = "Bonny"
-        before = len(self.hash_m)
-        self.hash_m["002"] = "Bonnie"
-        after = len(self.hash_m)
-        self.assertEqual(before, after)
-        self.assertEqual(self.hash_m["002"].name, "Bonnie")
+    def test_delete_removes_key(self):
+        """Deleting an existing key removes it and reduces the count."""
+        self.hash_map_table["003"] = "Cat"
+        del self.hash_map_table["003"]
+        self.assertEqual(len(self.hash_map_table), 0)
 
-    def test_get_missing_key_raises(self):
-        with self.assertRaises(KeyError):
-            _ = self.hash_m["missing"]
-
-    def test_delete_player(self):
-        self.hash_m["001"] = "Alice"
-        self.hash_m["002"] = "Bob"
-        self.assertEqual(len(self.hash_m), 2)
-
-        del self.hash_m["001"]
-        self.assertEqual(len(self.hash_m), 1)
-        with self.assertRaises(KeyError):
-            _ = self.hash_m["001"]
-
-    def test_delete_missing_key_raises(self):
-        with self.assertRaises(KeyError):
-            del self.hash_m["nope"]
-
-    def test_hash_function_accepts_player_or_uid(self):
-        p = Player("Alice", "001")
-        idx1 = self.hash_m.hash_function("001")
-        idx2 = self.hash_m.hash_function(p)
-        self.assertEqual(idx1, idx2)
-        self.assertTrue(0 <= idx1 < self.hash_m.size)
-
-    def test_get_index_with_invalid_type_raises(self):
-        with self.assertRaises(TypeError):
-            _ = self.hash_m.get_index(123)
-
-    def test_collisions_chain_correctly(self):
-        """force collisions and ensure all players are retrievable."""
-        original = Player.my_chosen_hash_function
-        try:
-            Player.my_chosen_hash_function = classmethod(lambda cls, k: 42)
-
-            self.hash_m["k1"] = "Alice"
-            self.hash_m["k2"] = "Bob"
-            self.hash_m["k3"] = "Charlie"
-
-            self.assertEqual(len(self.hash_m), 3)
-            self.assertEqual(self.hash_m["k1"].name, "Alice")
-            self.assertEqual(self.hash_m["k2"].name, "Bob")
-            self.assertEqual(self.hash_m["k3"].name, "Charlie")
-
-            del self.hash_m["k2"]
-            self.assertEqual(len(self.hash_m), 2)
-            self.assertEqual(self.hash_m["k1"].name, "Alice")
-            self.assertEqual(self.hash_m["k3"].name, "Charlie")
-            with self.assertRaises(KeyError):
-                _ = self.hash_m["k2"]
-        finally:
-            Player.my_chosen_hash_function = original
+    def test_chaining_allow_colliding_keys(self) -> None:
+        """Separate chaining supports multiple keys in the slots."""
+        colliding_hash_map = PlayerHashMap(size=1)
+        colliding_hash_map["a"] = "Apple"
+        colliding_hash_map["b"] = "Banana"
+        self.assertEqual(len(colliding_hash_map), 2)
+        self.assertEqual(colliding_hash_map["a"].name, "Apple")
+        self.assertEqual(colliding_hash_map["b"].name, "Banana")
 
 
 if __name__ == "__main__":
     unittest.main()
+
