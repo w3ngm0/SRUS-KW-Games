@@ -97,14 +97,32 @@ def test_sort_players(self):
 What was the outcome of running the above unit test, copy paste the output **for just this particular test** below:
 
 ```text
-Copy the traceback you got when you ran the test here.
+C:\Users\WANGMK.TDM\source\repos\SRUS-KW-Games\.venv\Scripts\python.exe "C:/Program Files/JetBrains/PyCharm 2023.3.2/plugins/python/helpers/pycharm/_jb_unittest_runner.py" --target player_test.TestPlayer.test_sort_players 
+Testing started at 1:49 pm ...
+Launching unittests with arguments python -m unittest player_test.TestPlayer.test_sort_players in C:\Users\WANGMK.TDM\source\repos\SRUS-KW-Games\test
+
+
+
+Ran 1 test in 0.005s
+
+FAILED (errors=1)
+
+Error
+Traceback (most recent call last):
+  File "C:\Users\WANGMK.TDM\source\repos\SRUS-KW-Games\test\player_test.py", line 23, in test_sort_players
+    sorted_players = sorted(players)
+TypeError: '<' not supported between instances of 'Player' and 'Player'
+
+
+Process finished with exit code 1
+
 ```
 
 ### 4.3. Success criteria
 
-- [ ] Unit test added to `test_player.py`
-- [ ] Unit test output provided
-- [ ] Unit test output reflects the error in `sorted(players)` (if you are getting another error read the instructions CAREFULLY)
+- [X] Unit test added to `test_player.py`
+- [X] Unit test output provided
+- [X] Unit test output reflects the error in `sorted(players)` (if you are getting another error read the instructions CAREFULLY)
 
 #### 4.3.1. Question: What dunder method is required for Python to sort players?
 
@@ -114,8 +132,9 @@ What is the **only** magic method that must be implemented in the player class f
 
 **Hint:** if you don't recall this from class, the error message you got when you ran the test will help you.
 -------
-> Answer Here
-> Yes, here - instead of this text!
+> Using the sorted function on instances does not work without the dunder `__lt__` (less than) method. This method allows us to compare instances of the Player class.
+> Python, behind the scene executes this method and will end up comparing the instances of 'Player' and 'Player'. 
+
 -------
 #### 4.3.2. Task: Implement the magic method in the Player class
 
@@ -136,7 +155,30 @@ def test_players_can_be_compared_by_score(self):
 Run the test and confirm that your error resembles the previous error
 
 ```text
-INSERT ERROR OUTPUT HERE
+C:\Users\WANGMK.TDM\source\repos\SRUS-KW-Games\.venv\Scripts\python.exe "C:/Program Files/JetBrains/PyCharm 2023.3.2/plugins/python/helpers/pycharm/_jb_unittest_runner.py" --target player_test.TestPlayer.test_players_can_be_compared_by_score 
+Testing started at 2:32 pm ...
+Launching unittests with arguments python -m unittest player_test.TestPlayer.test_players_can_be_compared_by_score in C:\Users\WANGMK.TDM\source\repos\SRUS-KW-Games\test
+
+
+
+Player(uid='02', name='Bob', score=5) != Player(uid='01', name='Alice', score=10)
+
+Expected :Player(uid='01', name='Alice', score=10)
+Actual   :Player(uid='02', name='Bob', score=5)
+<Click to see difference>
+
+Traceback (most recent call last):
+  File "C:\Users\WANGMK.TDM\source\repos\SRUS-KW-Games\test\player_test.py", line 39, in test_players_can_be_compared_by_score
+    self.assertEqual(alice, bob)
+AssertionError: Player(uid='01', name='Alice', score=10) != Player(uid='02', name='Bob', score=5)
+
+
+
+Ran 1 test in 0.008s
+
+FAILED (failures=1)
+
+Process finished with exit code 1
 ```
 
 - Implement the appropriate magic method in the Player class and ensure you pass this test
@@ -145,12 +187,12 @@ INSERT ERROR OUTPUT HERE
 
 #### 4.3.3. Success criteria
 
-- [ ] Unit test added to `test_player.py`
-- [ ] Magic method implemented in `Player` class
-- [ ] Initial Failed Unit test output provided
-- [ ] Unit test runs successfully with submitted code
-- [ ] Dunder method not employed directly
-- [ ] At least one commit capturing the above changes
+- [X] Unit test added to `test_player.py`
+- [X] Magic method implemented in `Player` class
+- [X] Initial Failed Unit test output provided
+- [X] Unit test runs successfully with submitted code
+- [X] Dunder method not employed directly
+- [X] At least one commit capturing the above changes
 
 #### 4.3.4. Task: Are we sorted yet?
 

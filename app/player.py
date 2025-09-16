@@ -27,6 +27,10 @@ class Player:
         else:
             raise ValueError("Number must be a positive value.")
 
+    def __lt__(self, other):
+        """compare player based on score"""
+        return self.score < other.score
+
     def __eq__(self, other):
         """check equality with another player based on score"""
         if not isinstance(other, Player):
