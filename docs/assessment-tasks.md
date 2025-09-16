@@ -199,13 +199,33 @@ Process finished with exit code 1
 Rerun `test_sort_players` does the test pass? If not, include the output below:
 
 ```text
-Your output here
+C:\Users\WANGMK.TDM\source\repos\SRUS-KW-Games\.venv\Scripts\python.exe "C:/Program Files/JetBrains/PyCharm 2023.3.2/plugins/python/helpers/pycharm/_jb_unittest_runner.py" --target player_test.TestPlayer.test_players_can_be_compared_by_score 
+Testing started at 2:47 pm ...
+Launching unittests with arguments python -m unittest player_test.TestPlayer.test_players_can_be_compared_by_score in C:\Users\WANGMK.TDM\source\repos\SRUS-KW-Games\test
+
+
+Failure
+Traceback (most recent call last):
+  File "C:\Users\WANGMK.TDM\source\repos\SRUS-KW-Games\test\player_test.py", line 37, in test_players_can_be_compared_by_score
+    self.assertTrue(alice.score < bob.score)
+AssertionError: False is not true
+
+
+
+Ran 1 test in 0.008s
+
+FAILED (failures=1)
+
+Process finished with exit code 1
 ```
 
 ##### 4.3.4.1 Question: why did the equality comparison fail?
 Why did the test fail (note: if it doesn't fail, it means there is something you have already done before you were asked to do so - if that's the case, you need to figure out what that is!)?
 -------
-> Answer here
+> The test above fails, Assertion Error: False is not true for line 37 in player_test.py file.
+> It is saying the following `self.assertTrue(alice.score < bob.score)` is not True. So alice's score is not less than bob's score. 
+> The statement should be `self.assertTrue(alice.score > bob.score` which should pass, alice's score is 10 and bob's score is 5. 
+> There is a comparison error in the code above alice's score is greater than bob's. 
 >
 -------
 Add the necessary code to the Player class to ensure that the `test_sort_players` test passes.

@@ -34,7 +34,7 @@ class TestPlayer(unittest.TestCase):
         bob = Player("Bob", uid='02', score=5)
 
         # Add the appropriate expression to the following assert test
-        self.assertTrue(alice.score < bob.score)
+        self.assertTrue(alice.score > bob.score)
         # or, event better
         self.assertGreater(alice, bob)
 
