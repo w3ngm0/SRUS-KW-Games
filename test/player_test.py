@@ -1,6 +1,7 @@
 import unittest
 from app.player import Player
 
+
 class TestPlayer(unittest.TestCase):
     def test_uid_property(self):
         """uid property returns the unique id."""
@@ -11,6 +12,7 @@ class TestPlayer(unittest.TestCase):
         """name property returns the name."""
         player = Player("Bonny", "123")
         self.assertEqual(player.name, "Bonny")
+
 
 if __name__ == '__main__':
     unittest.main()

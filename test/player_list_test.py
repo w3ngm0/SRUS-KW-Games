@@ -2,13 +2,13 @@ import unittest
 from player import Player
 from player_list import PlayerList
 
+
 class TestPlayerList(unittest.TestCase):
     def test_initial_list_is_empty(self):
         """Test to check if list is initially empty."""
         player_list = PlayerList()
         self.assertTrue(player_list.is_empty)
         self.assertIsNone(player_list.head)
-
 
     def test_insert_at_head(self):
         """Test to check if node is added to the head of the list."""
@@ -21,7 +21,6 @@ class TestPlayerList(unittest.TestCase):
         self.assertIsNotNone(player_list.head)
         self.assertEqual(player_list.head.player.name, "Alice")
         self.assertEqual(player_list.head.player.uid, "001")
-
 
     def test_insert_at_head_when_not_empty(self):
         """
@@ -43,6 +42,7 @@ class TestPlayerList(unittest.TestCase):
         self.assertEqual(new_head.player.name, "Bonny")
         self.assertEqual(new_head.player.uid, "002")
         self.assertIsNot(first_head, new_head)
+
     def test_insert_at_head_when_empty(self):
         """
         Inserting into an empty list sets head to the new node,
@@ -127,6 +127,7 @@ class TestPlayerList(unittest.TestCase):
         self.assertTrue(player_list.is_empty)
         self.assertIsNone(player_list.head)
         self.assertIsNone(player_list.tail)
+
 
 if __name__ == '__main__':
     unittest.main()

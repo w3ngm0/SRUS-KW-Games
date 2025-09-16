@@ -28,9 +28,8 @@ class PlayerNode:
     def key(self):
         return self._player.uid
 
-
     def __str__(self):
-        return f'{self._player.name} {self.key}'
+        return f'{self._player.name} {self.key}{self._player.score}'
 
     def __repr__(self):
-        return f'{self._player.name!r} {self.key!r}'
+        return f'{self._player.name!r} {self.key!r}{self._player.score}'

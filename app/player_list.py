@@ -7,6 +7,7 @@ class PlayerList:
         """Initialize player list."""
         self._head = None
         self._tail = None
+        self._count = 0
 
     @property
     def head(self):
@@ -22,6 +23,11 @@ class PlayerList:
     def is_empty(self) -> bool:
         """Return True if list is empty."""
         return self._head is None
+
+    @property
+    def count(self) -> bool:
+        """Return True if list is empty"""
+        return self._count == 0
 
     def insert_at_head(self, player: Player) -> None:
         """Insert new node containing player at the head of the list."""
@@ -115,7 +121,7 @@ class PlayerList:
 
         return False
 
-    def display(self, forward : bool = True) -> None:
+    def display(self, forward: bool = True) -> None:
         """Print the list from head to tail (forward) or tail to head (reverse) """
         if self.is_empty:
             print("List is empty")
@@ -140,6 +146,7 @@ class PlayerList:
 
         output = "<->".join(player_lst)
         print(output)
+
 
 player_1 = Player("Alice", "001")
 player_2 = Player("Bonny", "002")
