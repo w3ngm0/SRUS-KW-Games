@@ -268,7 +268,16 @@ def sort_quickly(arr):
 
 What is the expected time and space complexity of the above algorithm? You can answer using big O or in plain English but in both cases you MUST justify your answer.
 
-> Answer here
+> The expected time complexity would be: log liner
+> O(n log n) refers to product of N and log of N to the base 2. Here n is the size of the array to be sorted and log N is the average 
+> number of comparisons that needed to place a value in their right place in the sorted array. 
+> Time complexity for a quick sort for the example above occurs when pivot(selected element from the array) element divides the array into two equal half or when we select the pivot as the mean.
+> The sort_quickly function tries to split the array and then rearrange it around the pivot. After partitioning the array, all elements that are smaller than the pivot
+> will be on its left and the elements greater than the pivot will be on its right. Recursively, this process is applied to the two partitioned sub-arrays and then recursion stops 
+> when there is only one element left in the sub-array. 
+> The expected space complexity would be: O(n)
+> The space complexity of an algorithm is the total space taken by the algorithm with respect to input size. It is O(n) linear, due to unbalanced partitioning. 
+> 
 
 ### 5.2. Task: Implement the custom sorting algorithm
 
@@ -283,16 +292,33 @@ Add a separate test case to `test_player.py` to test your custom sorting algorit
 Include your code below:
 
 ```python
-# YOUR CUSTOM Sorting here
+ @classmethod
+    def sort_score_quickly(cls, array_to_sort: list) -> list:
+        """return list of players sorted by score in descending order."""
+        if len(array_to_sort) <= 1:
+            return array_to_sort
+        pivot = array_to_sort[0]
+        left = [] # >
+        right = [] # <
+        mid = [] # ==
+
+        for i in array_to_sort:
+            if i > pivot:
+                left.append(i)
+            elif i < pivot:
+                right.append(i)
+            else:
+                mid.append(i)
+        return Player.sort_score_quickly(left) + mid +  Player.sort_score_quickly(right)
 ```
 
 #### 5.2.3. Success criteria
 
-- [ ] Custom sorting algorithm implemented in the `Player` class as `classmethod`
-- [ ] Custom sorting algorithm sorts in descending order
-- [ ] Custom sorting algorithm compares players using their score (via the rich comparison operators)
-- [ ] Custom sorting algorithm tested in `test_player.py` and tests passed
-- [ ] At least one commit capturing the above changes
+- [X] Custom sorting algorithm implemented in the `Player` class as `classmethod`
+- [X] Custom sorting algorithm sorts in descending order
+- [X] Custom sorting algorithm compares players using their score (via the rich comparison operators)
+- [X] Custom sorting algorithm tested in `test_player.py` and tests passed
+- [X] At least one commit capturing the above changes
 
 ### 5.3. Test your custom sorting algorithm at scale
 
@@ -314,16 +340,28 @@ Include your test case below:
 
 ```python
 
-# YOUR TEST CASE HERE
+    def test_custom_sorting_algorithm_at_scale(self):
+        """Test custom sorting algorithm with a list of 1000 players."""
+        players = [Player(f"Player {i}", uid=f"{i:03}", score=random.randint(0, 1000)) for i in range(1000)]
+
+        # check descending order of sorted list
+        expected_list = sorted(players, reverse=True)
+        sorted_list = Player.sort_score_quickly(players)
+
+        # print first 10 scores to check
+        for i in sorted_list[:10]:
+            print(i)
+
+        self.assertEqual(sorted_list, expected_list)
 
 ```
 
 #### 5.3.2. Success criteria
 
-- [ ] Test case added to `test_player.py`
-- [ ] Test case sorts 1000 players correctly when compared to `sorted` function
-- [ ] Test case passes when run against the submitted code
-- [ ] At least one commit capturing the above changes
+- [X] Test case added to `test_player.py`
+- [X] Test case sorts 1000 players correctly when compared to `sorted` function
+- [X] Test case passes when run against the submitted code
+- [X] At least one commit capturing the above changes
 
 #### 5.3.3. Task: Testing sorting sorted players
 
@@ -345,22 +383,30 @@ Provide a reason why this test failed (if you got a recursion errors, you need t
 
 If your implementation did not fail, you must nevertheless explain why the senior developers algorithm has worse space complexity for presorted values.
 
-> Answer here
+> The developer's algorithm has worse space complexity for presorted value because based on their algorithm. It picks the first element as their pivot,
+> doing so splits the rest into left and right. They also sort both sides recursively(calling itself) then puts it back together after.
+> Left and right = [] which are every new lists every call and when slicing too arr[:1] also copies a list so there is a lot of duplication occurring. 
+> So the extra elements being copied takes up more memory/space even with the presorted values.
 
 Propose a fix to your sorting algorithm that fixes this issue.
+
+> I used a three-way partition with a (left, mid, right). All elements that are equal to the pivot (==) goes into the mid.
+> And when I call my recursive class method, the left/right compares the pivot and sorts the list.
+> 
 
 ```python
 # YOUR FIX HERE
 # Highlight what the fix was
+# Test did not fail - test passed with 1000 sorted players 
 ```
 
 #### 5.3.5. Success criteria
 
-- [ ] Test case added to `test_player.py`
-- [ ] Test case passes only when changes above are added
-- [ ] Explanation of why the algorithm fails on presorted values
-- [ ] Fix to the algorithm provided
-- [ ] At least one commit capturing the above changes
+- [X] Test case added to `test_player.py`
+- [X] Test case passes only when changes above are added
+- [X] Explanation of why the algorithm fails on presorted values
+- [X] Fix to the algorithm provided
+- [X] At least one commit capturing the above changes
 
 ## 6. Task: Authenticity of in class work
 
@@ -373,7 +419,7 @@ I, <name and student number>, completed this work in class <room number>, on <da
 Or (if not completed in class):
 
 ```text
-I, <name and student number>, completed this work outside of the scheduled hours. I emailed <assessors name>, on <date>, along with my documented reason for non-attendance, and have scheduled a time to meet to discuss my work.
+I, Kelden Wangmo 20070505, completed this work outside of the scheduled hours. I emailed Rafael, on 21/09/2025, and attended but did not complete,  and have scheduled a time to meet to discuss my work.
 
 I understand that until I meet my assessor to confirm that this work is a valid and true representation of my abilities to write and debug a sorting algorithm in Python, this submission cannot be considered complete.
 
