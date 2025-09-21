@@ -232,10 +232,10 @@ Add the necessary code to the Player class to ensure that the `test_sort_players
 
 #### 4.3.5. Success criteria
 
-- [ ] Correct explanation of why `test_sort_players` failed/passed
-- [ ] Correct implementation of the magic method in the `Player` class
-- [ ] `test_sort_players` passes when run against the submitted code
-- [ ] At least one commit capturing the above changes
+- [X] Correct explanation of why `test_sort_players` failed/passed
+- [X] Correct implementation of the magic method in the `Player` class
+- [X] `test_sort_players` passes when run against the submitted code
+- [X] At least one commit capturing the above changes
 
 ## 5. Implement a custom sorting algorithm
 
