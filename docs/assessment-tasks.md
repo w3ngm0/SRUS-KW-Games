@@ -427,13 +427,13 @@ I understand that until I meet my assessor to confirm that this work is a valid 
 
 ## 7. Submit your work
 
-- [ ] Ensure all tasks are complete and tests pass
-- [ ] Answer all questions in your own words
-- [ ] Complete the statement of authenticity
-- [ ] Include `.git` showing each task committed (you must show at least 5 commits)
-- [ ] Annotated tag of your last commit as `por3-finish`
-- [ ] Push your changes to your GitHub repository
-- [ ] Submit a zip of your repository to the LMS (ensure you do not add the `.venv` or `__pycache__` folders)
+- [X] Ensure all tasks are complete and tests pass
+- [X] Answer all questions in your own words
+- [X] Complete the statement of authenticity
+- [X] Include `.git` showing each task committed (you must show at least 5 commits)
+- [X] Annotated tag of your last commit as `por3-finish`
+- [X] Push your changes to your GitHub repository
+- [X] Submit a zip of your repository to the LMS (ensure you do not add the `.venv` or `__pycache__` folders)
 
 ---
 End of assessment task
