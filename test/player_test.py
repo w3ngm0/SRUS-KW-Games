@@ -34,10 +34,20 @@ class TestPlayer(unittest.TestCase):
         bob = Player("Bob", uid='02', score=5)
 
         # Add the appropriate expression to the following assert test
-        self.assertTrue(alice.score > bob.score)
+        self.assertTrue(alice > bob)
         # or, event better
         self.assertGreater(alice, bob)
 
+    def test_sort_score_quickly(self):
+        """Test to check that Player.sort_score_quickly correctly sorts players by score in descending order."""
+        players = [Player("Alice", uid="01", score=10),Player("Bob", uid="02", score=5),Player("Charlie", uid="03", score=15)]
+
+        sorted_list = Player.sort_score_quickly(players)
+
+        manually_sorted_score_list = [15,10,5]
+
+        # assert to check if list of scores match to my manually sorted list above
+        self.assertListEqual([i.score for i in sorted_list], manually_sorted_score_list)
 
 if __name__ == '__main__':
     unittest.main()

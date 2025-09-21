@@ -27,7 +27,26 @@ class Player:
         else:
             raise ValueError("Number must be a positive value.")
 
-    def __lt__(self, other):
+    @classmethod
+    def sort_score_quickly(cls, array_to_sort: list) -> list:
+        """return list of players sorted by score in descending order."""
+        if len(array_to_sort) <= 1:
+            return array_to_sort
+        pivot = array_to_sort[0]
+        left = [] # >
+        right = [] # <
+        mid = [] # ==
+
+        for i in array_to_sort:
+            if i > pivot:
+                left.append(i)
+            elif i < pivot:
+                right.append(i)
+            else:
+                mid.append(i)
+        return Player.sort_score_quickly(left) + mid +  Player.sort_score_quickly(right)
+
+    def __lt__(self, other, ):
         """compare player based on score"""
         return self.score < other.score
 
