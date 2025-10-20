@@ -43,5 +43,34 @@ class TestPlayerBinarySearchTree(unittest.TestCase):
         self.assertEqual(bst.root.left_node.player, 3)
         self.assertIsNone(bst.root.right_node)
 
+    def test_search_to_find_existing_player(self):
+        """Test to check if Player exists in the BST"""
+        bst = PlayerBST()
+        player1 = Player("Mae", "001")
+        player2 = Player("Ava", "002")
+        player3 = Player("Zoe", "003")
+
+        bst.insert(player1)
+        bst.insert(player2)
+        bst.insert(player3)
+
+        result = bst.search(bst.root, "Zoe")
+        self.assertIsNotNone(result)
+        self.assertEqual(result.player.name, "Zoe" )
+
+    def test_search_returns_none_for_missing_players(self):
+        bst = PlayerBST()
+        player1 = Player("Mae", "001")
+        player2 = Player("Ava", "002")
+        player3 = Player("Zoe", "003")
+
+        bst.insert(player1)
+        bst.insert(player2)
+        bst.insert(player3)
+
+        result = bst.search(bst.root, "Liam")
+        self.assertIsNone(result)
+
+
 if __name__ == "__main__":
     unittest.main()
