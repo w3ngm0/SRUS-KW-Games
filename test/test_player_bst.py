@@ -15,11 +15,11 @@ class TestPlayerBinarySearchTree(unittest.TestCase):
 
         # check if root is set
         self.assertIsNotNone(bst.root)
-        self.assertEqual(bst.root._player, 10)
+        self.assertEqual(bst.root.player, 10)
 
         # root should have no children
-        self.assertIsNone(bst.root._left)
-        self.assertIsNone(bst.root._right)
+        self.assertIsNone(bst.root.left_node)
+        self.assertIsNone(bst.root.right_node)
 
     def test_insert_second_value_goes_to_right_node(self):
         """Test to check if root not empty, larger value goes to the right side of the binary search tree """
@@ -27,10 +27,10 @@ class TestPlayerBinarySearchTree(unittest.TestCase):
         bst.insert(5) # first insert -> root
         bst.insert(8) # second insert -> right
 
-        self.assertEqual(bst.root._player, 5)
-        self.assertIsNotNone(bst.root._right)
-        self.assertEqual(bst.root._right._player, 8)
-        self.assertIsNone(bst.root._left)
+        self.assertEqual(bst.root.player, 5)
+        self.assertIsNotNone(bst.root.right_node)
+        self.assertEqual(bst.root.right_node.player, 8)
+        self.assertIsNone(bst.root.left_node)
 
     def test_insert_second_value_goes_to_left_node(self):
         """Test to check if root not empty, smaller value goes to the left side of the binary search tree """
@@ -38,10 +38,10 @@ class TestPlayerBinarySearchTree(unittest.TestCase):
         bst.insert(5) # first insert -> root
         bst.insert(3) # second insert -> left
 
-        self.assertEqual(bst.root._player, 5)
-        self.assertIsNotNone(bst.root._left)
-        self.assertEqual(bst.root._left._player, 3)
-        self.assertIsNone(bst.root._right)
+        self.assertEqual(bst.root.player, 5)
+        self.assertIsNotNone(bst.root.left_node)
+        self.assertEqual(bst.root.left_node.player, 3)
+        self.assertIsNone(bst.root.right_node)
 
 if __name__ == "__main__":
     unittest.main()
