@@ -21,6 +21,11 @@ class Player:
     def __repr__(self) -> str:
         return f"Player(uid={self._uid!r}, name={self._name!r})"
 
+    def __lt__(self, other):
+        if not isinstance(other, Player):
+            return NotImplemented
+        return (self.name, self.uid) < (other.name, other.uid)
+
     def __eq__(self, other) -> bool:
         """ check for equality base on player name as key"""
         if not isinstance(other, Player):
