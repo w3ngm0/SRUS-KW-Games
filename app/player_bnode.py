@@ -1,5 +1,5 @@
 class PlayerBNode:
-    def __init__(self, player, _left: None, _right: None):
+    def __init__(self, player, _left=None, _right=None):
         self._player = player
         self._left = _left
         self._right = _right
@@ -24,10 +24,14 @@ class PlayerBNode:
     def right_node(self, node):
         self._right = node
 
-    def __str__(self):
-        return f"{self._player}, Left Node: {self._left}, Right Node:  {self._right}."
+    def __eq__(self, other):
+        if not isinstance(other, PlayerBNode):
+            return NotImplemented
+        return self.player == other.player
+
 
     def __repr__(self):
-        class_name = self.__class__.__name__
-        return f"{class_name} (Player={self._player!r}, _left= {self._left!r}, _right={self._right!r})"
+        return f"(Player = {self._player!r}, L = {self._left!r}, R= {self._right!r})"
+
+
 
