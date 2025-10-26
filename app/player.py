@@ -24,7 +24,7 @@ class Player:
     def __lt__(self, other):
         if not isinstance(other, Player):
             return NotImplemented
-        return (self.name, self.uid) < (other.name, other.uid)
+        return self.name < other.name
 
     def __eq__(self, other) -> bool:
         """ check for equality base on player name as key"""
