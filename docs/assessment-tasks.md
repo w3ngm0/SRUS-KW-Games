@@ -339,21 +339,35 @@ Using the code above as a starting point, create a test case to test your custom
 Include your test case below:
 
 ```python
+    # Attempt to test sorted list - only sort a random list doesn't sort a sorted list 
+    # def test_custom_sorting_algorithm_at_scale(self):
+    #     """Test custom sorting algorithm with a list of 1000 players."""
+    #     players = [Player(f"Player {i}", uid=f"{i:03}", score=random.randint(0, 1000)) for i in range(1000)]
+    # 
+    #     # check descending order of sorted list
+    #     expected_list = sorted(players, reverse=True)
+    #     sorted_list = Player.sort_score_quickly(players)
+    # 
+    #     # print first 10 scores to check
+    #     for i in sorted_list[:10]:
+    #         print(i)
+    # 
+    #     self.assertEqual(sorted_list, expected_list)
+    
+    
+    def test_sorting_already_sorted_players(self):
+    """TEst storing 1000 players that are already sorted"""
 
-    def test_custom_sorting_algorithm_at_scale(self):
-        """Test custom sorting algorithm with a list of 1000 players."""
-        players = [Player(f"Player {i}", uid=f"{i:03}", score=random.randint(0, 1000)) for i in range(1000)]
+    players = sorted(
+        [Player(f"Player {i}", uid=f"{i:03}", score=random.randint(0, 1000))
+         for i in range(1000)],
+        reverse=True
+    )
 
-        # check descending order of sorted list
-        expected_list = sorted(players, reverse=True)
-        sorted_list = Player.sort_score_quickly(players)
+    #try sort with custom algorithm
+    result = Player.sort_score_quickly(players)
 
-        # print first 10 scores to check
-        for i in sorted_list[:10]:
-            print(i)
-
-        self.assertEqual(sorted_list, expected_list)
-
+    self.assertEqual(result, players)
 ```
 
 #### 5.3.2. Success criteria
@@ -383,21 +397,23 @@ Provide a reason why this test failed (if you got a recursion errors, you need t
 
 If your implementation did not fail, you must nevertheless explain why the senior developers algorithm has worse space complexity for presorted values.
 
-> The developer's algorithm has worse space complexity for presorted value because based on their algorithm. It picks the first element as their pivot,
-> doing so splits the rest into left and right. They also sort both sides recursively(calling itself) then puts it back together after.
-> Left and right = [] which are every new lists every call and when slicing too arr[:1] also copies a list so there is a lot of duplication occurring. 
-> So the extra elements being copied takes up more memory/space even with the presorted values.
+> The custom sorting algorithm fails on presorted values because it chooses the first element as the pivot.  
+> When the input list is already sorted (descending order for this task), this creates a scenario for QuickSort where 
+> all other elements compare as "greater than" the pivot, they all get placed into one partition ("left"), while the other ("right") partition is empty.
+> This means that each recursive call only removes one element from the list.
+> Instead of dividing the list into smaller halves, the algorithm creates a chain of recursive calls (1000 -> 999 -> 998),
+> which exceeds Python's recursion depth and causes a recursion error. 
 
 Propose a fix to your sorting algorithm that fixes this issue.
 
-> I used a three-way partition with a (left, mid, right). All elements that are equal to the pivot (==) goes into the mid.
-> And when I call my recursive class method, the left/right compares the pivot and sorts the list.
-> 
+> A suitable fix is to choose a better pivot such as using the middle element of the list instead of always picking
+> the first element.
+> This helps the algorithm prevent such behaviour. 
 
 ```python
-# YOUR FIX HERE
-# Highlight what the fix was
-# Test did not fail - test passed with 1000 sorted players 
+
+pivot = array_to_sort[len(array_to_sort) // 2]
+
 ```
 
 #### 5.3.5. Success criteria
