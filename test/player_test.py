@@ -50,20 +50,20 @@ class TestPlayer(unittest.TestCase):
         # assert to check if list of scores match to my manually sorted list above
         self.assertListEqual([i.score for i in sorted_list], manually_sorted_score_list)
 
-    # def test_custom_sorting_algorithm_at_scale(self):
-    #     """Test custom sorting algorithm with a list of 1000 players."""
-    #     players = [Player(f"Player {i}", uid=f"{i:03}", score=random.randint(0, 1000)) for i in range(1000)]
-    #
-    #     # check descending order of sorted list
-    #     expected_list = sorted(players, reverse=True)
-    #     sorted_list = Player.sort_score_quickly(players)
-    #     #sorted_list = Player.sort_quickly(players)
-    #
-    #     # print first 10 scores to check
-    #     for i in sorted_list[:10]:
-    #         print(i)
-    #
-    #     self.assertEqual(sorted_list, expected_list)
+    def test_custom_sorting_algorithm_at_scale(self):
+        """Test custom sorting algorithm with a list of 1000 players."""
+        players = [Player(f"Player {i}", uid=f"{i:03}", score=random.randint(0, 1000)) for i in range(1000)]
+
+        # check descending order of sorted list
+        expected_list = sorted(players, reverse=True)
+        sorted_list = Player.sort_score_quickly(players)
+        #sorted_list = Player.sort_quickly(players)
+
+        # print first 10 scores to check
+        for i in sorted_list[:10]:
+            print(i)
+
+        self.assertEqual(sorted_list, expected_list)
 
     def test_sorting_already_sorted_players(self):
         """Test storing 1000 players that are already sorted"""

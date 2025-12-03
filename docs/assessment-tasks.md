@@ -300,16 +300,14 @@ Include your code below:
         pivot = array_to_sort[0]
         left = [] # >
         right = [] # <
-        mid = [] # ==
 
         for i in array_to_sort:
             if i > pivot:
                 left.append(i)
-            elif i < pivot:
-                right.append(i)
             else:
-                mid.append(i)
-        return Player.sort_score_quickly(left) + mid +  Player.sort_score_quickly(right)
+                right.append(i)
+            
+        return Player.sort_score_quickly(left) + pivot +  Player.sort_score_quickly(right)
 ```
 
 #### 5.2.3. Success criteria
@@ -339,35 +337,23 @@ Using the code above as a starting point, create a test case to test your custom
 Include your test case below:
 
 ```python
-    # Attempt to test sorted list - only sort a random list doesn't sort a sorted list 
-    # def test_custom_sorting_algorithm_at_scale(self):
-    #     """Test custom sorting algorithm with a list of 1000 players."""
-    #     players = [Player(f"Player {i}", uid=f"{i:03}", score=random.randint(0, 1000)) for i in range(1000)]
-    # 
-    #     # check descending order of sorted list
-    #     expected_list = sorted(players, reverse=True)
-    #     sorted_list = Player.sort_score_quickly(players)
-    # 
-    #     # print first 10 scores to check
-    #     for i in sorted_list[:10]:
-    #         print(i)
-    # 
-    #     self.assertEqual(sorted_list, expected_list)
+    #Attempt to test sorted list - only sort a random list doesn't sort a sorted list 
+    def test_custom_sorting_algorithm_at_scale(self):
+        """Test custom sorting algorithm with a list of 1000 players."""
+        players = [Player(f"Player {i}", uid=f"{i:03}", score=random.randint(0, 1000)) for i in range(1000)]
+
+        # check descending order of sorted list
+        expected_list = sorted(players, reverse=True)
+        sorted_list = Player.sort_score_quickly(players)
+
+        # print first 10 scores to check
+        for i in sorted_list[:10]:
+            print(i)
+
+        self.assertEqual(sorted_list, expected_list)
     
     
-    def test_sorting_already_sorted_players(self):
-    """TEst storing 1000 players that are already sorted"""
-
-    players = sorted(
-        [Player(f"Player {i}", uid=f"{i:03}", score=random.randint(0, 1000))
-         for i in range(1000)],
-        reverse=True
-    )
-
-    #try sort with custom algorithm
-    result = Player.sort_score_quickly(players)
-
-    self.assertEqual(result, players)
+    
 ```
 
 #### 5.3.2. Success criteria
@@ -388,7 +374,39 @@ Create a test case that tries to sort 1000 players that are already sorted.
 If you get a failure, include the failure below:
 
 ```text
-YOUR FAILURE HERE
+C:\Users\kabyw\AppData\Local\Microsoft\WindowsApps\python3.12.exe "C:/Program Files/JetBrains/PyCharm 2023.2.1/plugins/python/helpers/pycharm/_jb_unittest_runner.py" --target player_test.TestPlayer.test_sorting_already_sorted_players 
+Testing started at 3:37 pm ...
+Launching unittests with arguments python -m unittest player_test.TestPlayer.test_sorting_already_sorted_players in C:\Users\kabyw\source\repos\SRUS-KW-Games\test
+
+
+
+Ran 1 test in 0.597s
+
+FAILED (errors=1)
+
+Error
+Traceback (most recent call last):
+  File "C:\Users\kabyw\source\repos\SRUS-KW-Games\test\player_test.py", line 78, in test_sorting_already_sorted_players
+    result = Player.sort_score_quickly(players)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kabyw\source\repos\SRUS-KW-Games\app\player.py", line 47, in sort_score_quickly
+    return Player.sort_score_quickly(left) + [pivot] +  Player.sort_score_quickly(right)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kabyw\source\repos\SRUS-KW-Games\app\player.py", line 47, in sort_score_quickly
+    return Player.sort_score_quickly(left) + [pivot] +  Player.sort_score_quickly(right)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kabyw\source\repos\SRUS-KW-Games\app\player.py", line 47, in sort_score_quickly
+    return Player.sort_score_quickly(left) + [pivot] +  Player.sort_score_quickly(right)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  [Previous line repeated 982 more times]
+  File "C:\Users\kabyw\source\repos\SRUS-KW-Games\app\player.py", line 41, in sort_score_quickly
+    if i > pivot:
+       ^^^^^^^^^
+  File "C:\Users\kabyw\source\repos\SRUS-KW-Games\app\player.py", line 51, in __lt__
+    return self.score < other.score
+           ^^^^^^^^^^
+RecursionError: maximum recursion depth exceeded
+
 ```
 
 ##### 5.3.4.1 Question: Why does the algorithm fail on presorted values?
@@ -397,6 +415,7 @@ Provide a reason why this test failed (if you got a recursion errors, you need t
 
 If your implementation did not fail, you must nevertheless explain why the senior developers algorithm has worse space complexity for presorted values.
 
+> Using the custom sorting algorithm from 5.2.2. 
 > The custom sorting algorithm fails on presorted values because it chooses the first element as the pivot.  
 > When the input list is already sorted (descending order for this task), this creates a scenario for QuickSort where 
 > all other elements compare as "greater than" the pivot, they all get placed into one partition ("left"), while the other ("right") partition is empty.
@@ -412,7 +431,29 @@ Propose a fix to your sorting algorithm that fixes this issue.
 
 ```python
 
-pivot = array_to_sort[len(array_to_sort) // 2]
+pivot = array_to_sort[len(array_to_sort) // 2] 
+
+# Or a custom sorting method using mid 
+
+@classmethod
+    def sort_score_quickly(cls, array_to_sort: list) -> list:
+        """return list of players sorted by score in descending order."""
+        if len(array_to_sort) <= 1:
+            return array_to_sort
+        pivot = array_to_sort[0]
+        left = [] # >
+        right = [] # <
+        mid = [] # ==
+
+        for i in array_to_sort:
+            if i > pivot:
+                left.append(i)
+            elif i < pivot:
+                right.append(i)
+            else:
+                mid.append(i)
+        return Player.sort_score_quickly(left) + mid +  Player.sort_score_quickly(right)
+
 
 ```
 
